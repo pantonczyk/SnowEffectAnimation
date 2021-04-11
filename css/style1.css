@@ -1,0 +1,155 @@
+/* RESET */
+
+body,
+blockquote,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+body {
+  min-width: 1335px;
+  position: relative;
+  overflow: hidden;
+  background-color: #343436;
+}
+
+/* There are multiple ways to place your actual background image.  For this one, we're using a body::before psuedo element. */
+body::before {
+  background: url(../images/park.jpg) no-repeat center center/cover;
+  background-size: 100%;
+  content: "";
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+/* Our subreddit has two sections for snow so we select the last two blockquotes. */
+.side .md > blockquote:nth-last-of-type(-n + 2) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  height: 100vh;
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* For markdown only. Hides the divider I use to prevent markdown combining the blockquotes.  */
+.side .md > blockquote:nth-last-of-type(2) + hr {
+  display: none;
+}
+
+.side .md > blockquote:nth-last-of-type(-n + 2) ul {
+  width: calc(100% - -100px);
+  height: 100vh;
+
+  position: absolute;
+  /*top: -50px;*/
+  left: -50px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  list-style: none;
+  perspective: 300px;
+  animation: sway 20s ease infinite alternate;
+}
+
+/* Give the snow a bit of nonlinear movement in each direction. */
+@keyframes sway {
+  25% {
+    transform: translate(50px, 0);
+  }
+  50% {
+    transform: translate(-50px, 0);
+  }
+  75% {
+    transform: translate(25px, 0);
+  }
+  100% {
+    transform: translate(-50px, 0);
+  }
+}
+
+.side .md > blockquote:nth-last-of-type(-n + 2) li {
+  display: block;
+  background-image: url(%%snow%%);
+
+  /* outside reddit need actual file */
+  background-image: url(https://b.thumbs.redditmedia.com/XPoCf2QaBwJR3QOQW4GSSWG8pX-aBflYmRBngkuLgJQ.png);
+
+  height: 1200px;
+
+  /*top: -150px;*/
+
+  left: -50%;
+  min-width: 2400px;
+  width: 200vw;
+  transform: translateX(-600px) translateY(-600px);
+  background-repeat: repeat;
+  animation: snowfall 10s linear infinite;
+  position: absolute;
+  overflow: hidden;
+}
+
+.side .md > blockquote:nth-last-of-type(2) li {
+  background-image: url(%%snow-blur%%);
+
+  /* outside reddit need actual file */
+  background-image: url("https://a.thumbs.redditmedia.com/UdBoXjTeS-Pq1UMLnt8pi9Lt5JuQ3fcvdYRWkfBF1t0.png");
+}
+
+.side .md > blockquote:nth-last-of-type(-n + 2) li:nth-child(2) {
+  animation-name: snowfallX;
+  background-position: 50px 50px;
+  transform: translateX(-600px) translateY(-600px) translateZ(250px);
+  opacity: 0.5;
+}
+
+.side .md > blockquote:nth-last-of-type(-n + 2) li:nth-child(3) {
+  animation-name: snowfallZ;
+  background-position: 100px 100px;
+  transform: translateX(-600px) translateY(-600px) translateZ(150px);
+}
+
+.side .md > blockquote:nth-last-of-type(-n + 2) li:nth-child(4) {
+  animation-name: snowfallY;
+
+  /* Adjust a little bit for the zoom out of perspective */
+  background-position: 150px 150px;
+  transform: translateX(-600px) translateY(-600px) translateZ(150px);
+}
+
+@keyframes snowfall {
+  to {
+    transform: none;
+  }
+}
+
+@keyframes snowfallZ {
+  to {
+    transform: translateZ(150px);
+  }
+}
+
+@keyframes snowfallX {
+  to {
+    transform: translateZ(250px);
+  }
+}
+
+@keyframes snowfallY {
+  to {
+    transform: translateZ(-150px);
+  }
+}
